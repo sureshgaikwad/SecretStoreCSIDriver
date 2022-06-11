@@ -84,6 +84,7 @@ oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver
 2. Create a Secret Provider Class to give access to this secret
 ~~~
 oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/main/secretproviderclass.yaml
+export Secret_Provider_Class=azure-kvname
 ~~~
 3. Create a deployment that uses the above Secret Provider Class. The below yaml file mounts the secret in /mnt/secrets-store/ directory within the pod. It will also set the environment variable "SECRET_USERNAME" and will fetch the value from the secret created in KeyVault.
 ~~~
