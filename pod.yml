@@ -2,7 +2,7 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: busybox-secrets-store-inline
-  namespace: kube-system
+  namespace: my-application
 spec:
   containers:
     - name: busybox
@@ -14,7 +14,7 @@ spec:
       - name: SECRET_USERNAME
         valueFrom:
           secretKeyRef:
-            name: zzzz
+            name: appcred
             key: suresh
       volumeMounts:
       - name: secrets-store-inline
