@@ -79,16 +79,16 @@ kubectl -n my-application label secret secrets-store-creds secrets-store.csi.k8s
 **Deploy an Application that uses the CSI**
 1. Create a SCC which will allow CSI volumes
 ~~~
-oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/main/scc.yml
+oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/master/scc.yml
 ~~~
 2. Create a Secret Provider Class to give access to this secret
 ~~~
-oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/main/secretproviderclass.yaml
+oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/master/secretproviderclass.yaml
 export Secret_Provider_Class=azure-kvname
 ~~~
 3. Create a deployment that uses the above Secret Provider Class. The below yaml file mounts the secret in /mnt/secrets-store/ directory within the pod. It will also set the environment variable "SECRET_USERNAME" and will fetch the value from the secret created in KeyVault.
 ~~~
-oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/main/deployment.yaml
+oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/master/deployment.yaml
 ~~~
 4. Check the Secret is mounted
 ~~~
