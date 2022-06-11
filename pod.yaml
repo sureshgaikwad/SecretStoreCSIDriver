@@ -2,7 +2,7 @@ kind: Pod
 apiVersion: v1
 metadata:
   name: busybox-secrets-store-inline
-  namespace: my-applicatio
+  namespace: my-application
 spec:
   containers:
     - name: busybox
