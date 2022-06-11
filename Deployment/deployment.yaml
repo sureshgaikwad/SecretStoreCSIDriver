@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: busybox-secrets-store-inline
-  namespace: my-application
+  namespace: my-applicatio
   labels:
     app: busybox
 spec:
