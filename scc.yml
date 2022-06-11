@@ -22,11 +22,7 @@ metadata:
       pods to be run with a UID, and SELinux context that are allocated to the namespace.  This
       is the most restrictive SCC and it is used by default for authenticated users.
     release.openshift.io/create-only: "true"
-  creationTimestamp: "2022-06-11T16:32:01Z"
-  generation: 1
   name: csi
-  resourceVersion: "337"
-  uid: 1ae52891-6edd-4a10-8464-61ddf5ff2839
 priority: null
 readOnlyRootFilesystem: false
 requiredDropCapabilities:
