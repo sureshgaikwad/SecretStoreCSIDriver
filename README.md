@@ -12,3 +12,6 @@ export AZ_TENANT_ID=$(az account show -o tsv --query tenantId)
 ~~~
 We are using kube-system namespace in this example to install the CSI driver
 
+~~~
+helm install -n k8s-secrets-store-csi csi-secrets-store secrets-store-csi-driver/secrets-store-csi-driver --version v1.0.1 --set "linux.providersDir=/var/run/secrets-store-csi-providers" --set "syncSecret.enabled=true" --set "enableSecretRotation=true"
+~~~
