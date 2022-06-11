@@ -5,10 +5,10 @@ Azure Key Vault provider for Secrets Store CSI Driver allows you to get secret c
 
 Run this command to set some environment variables to use throughout
 ~~~
-$ export KEYVAULT_RESOURCE_GROUP=csi-rg
-$ export KEYVAULT_LOCATION=centralindia
-$ export KEYVAULT_NAME=secret-store-$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
-$ export AZ_TENANT_ID=$(az account show -o tsv --query tenantId)
+export KEYVAULT_RESOURCE_GROUP=csi-rg
+export KEYVAULT_LOCATION=centralindia
+export KEYVAULT_NAME=secret-store-$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 10 | head -n 1)
+export AZ_TENANT_ID=$(az account show -o tsv --query tenantId)
 ~~~
 We are using kube-system namespace in this example to install the CSI driver
 
