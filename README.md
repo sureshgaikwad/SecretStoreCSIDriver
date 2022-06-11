@@ -1,5 +1,9 @@
-# SecretStoreCSIDriver
+# Installing Secret Store CSI Driver in a ARO cluster
 Azure Key Vault provider for Secrets Store CSI Driver allows you to get secret contents stored in an Azure Key Vault instance and use the Secrets Store CSI driver interface to mount them into Kubernetes pods.
+
+We will install secret store CSI driver in a ARO cluster. After the CSI drivers are installed, we will see:
+1. How to sync mounted content with Kubernetes secret
+2. Set your Environment Variable to Reference a Kubernetes Secret
 
 **How to install Secrets Store CSI Driver and Azure Key Vault Provider on your clusters.**
 
@@ -52,9 +56,10 @@ oc new-project my-application
 ~~~
 az keyvault create -n ${KEYVAULT_NAME} -g ${KEYVAULT_RESOURCE_GROUP} --location ${KEYVAULT_LOCATION}
 ~~~
-3. Create a secret in the Keyvault
+3. Create a secret in the Keyvault. We are creating two secrets here. We will use one to mount as a volume in a pod. We will use other to sync as a environment variable.
 ~~~
 az keyvault secret set --vault-name ${KEYVAULT_NAME} --name secret1 --value "Hello"
+az keyvault secret set --vault-name ${KEYVAULT_NAME} --name username --value "testuser"
 ~~~
 4. Create a Service Principal for the keyvault
 ~~~
@@ -80,7 +85,16 @@ oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver
 ~~~
 oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/main/secretproviderclass.yaml
 ~~~
-3. Create a deployment that uses the above Secret Provider Class
+3. Create a deployment that uses the above Secret Provider Class. The below yaml file mounts the secret in /mnt/secrets-store/ directory within the pod. It will also set the environment variable "SECRET_USERNAME" and will fetch the value from the secret created in KeyVault.
 ~~~
 oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/main/deployment.yaml
 ~~~
+4. Check the Secret is mounted
+~~~
+oc  exec <pod_name> -- ls /mnt/secrets-store/
+~~~
+5. Check if the environment variable is set and it's value
+~~~
+oc exec <pod_name> -- env |grep SECRET_USERNAME
+~~~
+Since we have enabled auto sync of secrets, if the value is modified from the KeyVault, it will automatically update the secret in ARO cluster. However, you need to restart the pod to reflect the new value. 
