@@ -5,7 +5,7 @@ We will install secret store CSI driver in a ARO cluster. After the CSI drivers 
 1. How to sync mounted content with Kubernetes secret
 2. Set your Environment Variable to Reference a Kubernetes Secret
 
-**Make sure you have the latest Azure and OC CLI available
+**Make sure you have the latest [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=dnf) and [oc command-line tool](https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable/openshift-client-linux.tar.gz) available**
 
 **How to install Secrets Store CSI Driver and Azure Key Vault Provider on your clusters.**
 
