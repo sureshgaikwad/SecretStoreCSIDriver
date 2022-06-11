@@ -5,6 +5,8 @@ We will install secret store CSI driver in a ARO cluster. After the CSI drivers 
 1. How to sync mounted content with Kubernetes secret
 2. Set your Environment Variable to Reference a Kubernetes Secret
 
+**Make sure you have the latest Azure and OC CLI available
+
 **How to install Secrets Store CSI Driver and Azure Key Vault Provider on your clusters.**
 
 1. Run this command to set some environment variables to use throughout
@@ -72,23 +74,23 @@ az keyvault set-policy -n ${KEYVAULT_NAME} --secret-permissions get --spn ${SERV
 ~~~
 6. Create and label a secret for Kubernetes to use to access the Key Vault
 ~~~
-kubectl create secret generic secrets-store-creds -n my-application --from-literal clientid=${SERVICE_PRINCIPAL_CLIENT_ID} --from-literal clientsecret=${SERVICE_PRINCIPAL_CLIENT_SECRET}
+oc create secret generic secrets-store-creds -n my-application --from-literal clientid=${SERVICE_PRINCIPAL_CLIENT_ID} --from-literal clientsecret=${SERVICE_PRINCIPAL_CLIENT_SECRET}
  
-kubectl -n my-application label secret secrets-store-creds secrets-store.csi.k8s.io/used=true
+oc -n my-application label secret secrets-store-creds secrets-store.csi.k8s.io/used=true
 ~~~
 **Deploy an Application that uses the CSI**
 1. Create a SCC which will allow CSI volumes
 ~~~
-oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/master/scc.yml
+oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/master/Deployment/scc.yml
 ~~~
 2. Create a Secret Provider Class to give access to this secret
 ~~~
-oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/master/secretproviderclass.yaml
+oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/master/Deployment/secretproviderclass.yaml
 export Secret_Provider_Class=azure-kvname
 ~~~
 3. Create a deployment that uses the above Secret Provider Class. The below yaml file mounts the secret in /mnt/secrets-store/ directory within the pod. It will also set the environment variable "SECRET_USERNAME" and will fetch the value from the secret created in KeyVault.
 ~~~
-oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/master/deployment.yaml
+oc apply -f https://raw.githubusercontent.com/sureshgaikwad/SecretStoreCSIDriver/master/Deployment/deployment.yaml
 ~~~
 4. Check the Secret is mounted
 ~~~
