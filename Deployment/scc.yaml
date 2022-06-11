@@ -1,4 +1,4 @@
-allowHostDirVolumePlugin: false
+allowHostDirVolumePlugin: fals
 allowHostIPC: false
 allowHostNetwork: false
 allowHostPID: false
